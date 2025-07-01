@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: kiosk
-          image: quay.io/rciots/pilot-kiosk:latest
+          image: quay.io/rciots/kiosk:latest
           ports:
             - containerPort: 8080
