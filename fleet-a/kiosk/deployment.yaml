@@ -1,0 +1,22 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kiosk
+  namespace: kiosk
+  labels:
+    app: kiosk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kiosk
+  template:
+    metadata:
+      labels:
+        app: kiosk
+    spec:
+      containers:
+        - name: kiosk
+          image: quay.io/rciots/pilot-kiosk:latest
+          ports:
+            - containerPort: 8080

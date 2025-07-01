@@ -1,0 +1,30 @@
+apiVersion: v1alpha1
+kind: Fleet
+metadata:
+  name: pilot-fleet-a
+  labels:
+    owner: mparra
+spec:
+  selector:
+    matchLabels:
+      fleet: pilot-fleet-a
+  template:
+    spec:
+      os:
+        image: quay.io/rciots/pilot-device-image-rhel:latest
+      config:
+        - name: motd-update
+          inline:
+            - path: "/etc/motd"
+              content: "This system is managed by flightctl."
+              mode: 0644
+        - name: microshift-manifests
+          gitRef:  
+            repository: pilot-manifests
+            targetRevision: main
+            path: /fleet-a
+      systemd:
+        matchPatterns:
+          - "microshift.service"
+          - "crio.service"
+          - "flightctl-agent.service"
